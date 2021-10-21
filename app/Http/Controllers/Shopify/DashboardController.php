@@ -21,4 +21,9 @@ class DashboardController extends Controller
         $shop = $request->get("shop");
         return view("shopify.dashboard.index", compact("shop"));
     }
+
+    public function antiTheft(Request $request)
+    {
+
+    }
 }
