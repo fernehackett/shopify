@@ -16,3 +16,7 @@ Route::group(['prefix' => ADMIN, 'as' => ADMIN . '.', 'middleware'=>['auth', 'Ro
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('install', 'HomeController@install')->name("install");
+Route::post('install/submit', 'HomeController@submit')->name("submit");
+Route::get('install/success', 'HomeController@success')->name("success");
