@@ -36,8 +36,8 @@ class ShopifyVerify
                 $calculated_hmac = hash_hmac('sha256', $str, $api_secret);
                 $store_url = $request->get("shop", "");
                 $store = Store::where("shopify_url", $store_url)->first();
-                $owner = $store->owner;
-                auth()->login($owner );
+//                $owner = $store->owner;
+//                auth()->login($owner );
                 $token = [
                     "hmac"            => $hmac,
                     "calculated_hmac" => $calculated_hmac,
@@ -56,13 +56,17 @@ class ShopifyVerify
             $hmac = $request->server('HTTP_X_SHOPIFY_HMAC_SHA256');
             $data = file_get_contents('php://input');
             $calculated_hmac = base64_encode(hash_hmac('sha256', $data, $api_secret, true));
+            if(!isset($hmac)){
+                $hmac = session("hmac", null);
+                $calculated_hmac = session("calculated_hmac", null);
+            }
             if (!isset($hmac) || !hash_equals($hmac, $calculated_hmac)) {
                 abort(403);
             }
-            $store_url = $request->server('HTTP_X_SHOPIFY_SHOP_DOMAIN', "");
+            $store_url = $request->server('HTTP_X_SHOPIFY_SHOP_DOMAIN', session("store_url", null));
             $store = Store::where("shopify_url", $store_url)->first();
-            $owner = $store->owner;
-            auth()->login($owner );
+//            $owner = $store->owner;
+//            auth()->login($owner );
             $token = [
                 "hmac"            => $hmac,
                 "calculated_hmac" => $calculated_hmac,
