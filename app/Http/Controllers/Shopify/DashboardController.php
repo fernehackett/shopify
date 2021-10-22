@@ -53,7 +53,6 @@ class DashboardController extends Controller
                 ScriptTag::create($response);
                 return back()->withSuccess("Update successfully!");
             } catch (\Exception $e) {
-                dd($e->getMessage());
                 return back()->withSuccess("Update failed!");
             }
         } else {
