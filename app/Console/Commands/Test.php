@@ -60,7 +60,7 @@ class Test extends Command
                 "format"  => "json"
             ]);
         } catch (ApiException $e) {
-            \Log::warning($e);
+            dump($e->getMessage());
         };
         try {
             $shopify->Webhook->post([
@@ -69,7 +69,7 @@ class Test extends Command
                 "format"  => "json"
             ]);
         } catch (ApiException $e) {
-            \Log::warning($e);
+            dump($e->getMessage());
         };
         try {
             $shopify->Webhook->post([
@@ -78,7 +78,7 @@ class Test extends Command
                 "format"  => "json"
             ]);
         } catch (ApiException $e) {
-            \Log::warning($e);
+            dump($e->getMessage());
         };
         return 0;
     }
