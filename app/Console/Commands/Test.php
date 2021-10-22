@@ -54,7 +54,7 @@ class Test extends Command
         ];
         $shopify = new ShopifySDK($config);
         try {
-            $WebHook->post([
+            $shopify->Webhook->post([
                 "topic"   => "customers/data_request",
                 "address" => route("api.webHook"),
                 "format"  => "json"
@@ -63,7 +63,7 @@ class Test extends Command
             \Log::warning($e);
         };
         try {
-            $WebHook->post([
+            $shopify->Webhook->post([
                 "topic"   => "customers/redact",
                 "address" => route("api.webHook"),
                 "format"  => "json"
@@ -72,7 +72,7 @@ class Test extends Command
             \Log::warning($e);
         };
         try {
-            $WebHook->post([
+            $shopify->Webhook->post([
                 "topic"   => "shop/redact",
                 "address" => route("api.webHook"),
                 "format"  => "json"
