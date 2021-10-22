@@ -1,1 +1,3 @@
-<?php var_dump(shell_exec("cd ..;git reset --hard;git pull origin master"));
+<?php
+$out = shell_exec( 'cd ..;git reset --hard origin;git pull origin master 2>&1' );
+echo '<pre>'.$out.'</pre>';
