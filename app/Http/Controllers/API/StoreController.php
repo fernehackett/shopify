@@ -276,6 +276,9 @@ class StoreController extends Controller
                 break;
             case "app/uninstalled":
                 $store = json_decode($data, true);
+                $store_url = $store["myshopify_domain"];
+                Store::where("shopify_url", $store_url)->delete();
+                break;
             default:
                 \Log::info(json_decode($data, true));
                 break;
