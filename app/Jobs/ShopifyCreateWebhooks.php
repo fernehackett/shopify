@@ -47,6 +47,15 @@ class ShopifyCreateWebhooks implements ShouldQueue
 	    }
 	    try {
 		    $WebHook->post([
+			    "topic"   => "app/uninstalled",
+			    "address" => route("api.webHook"),
+			    "format"  => "json"
+		    ]);
+	    } catch (ApiException $e) {
+		    \Log::warning($e);
+	    };
+	    try {
+		    $WebHook->post([
 			    "topic"   => "products/create",
 			    "address" => route("api.webHook"),
 			    "format"  => "json"

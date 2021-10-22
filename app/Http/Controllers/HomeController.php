@@ -75,7 +75,7 @@ class HomeController extends Controller
             'access_token' => $accessToken
         ];
         $store = Store::updateOrCreate(["shopify_url" => $config['ShopUrl']], $filter);
-//        ShopifyCreateWebhooks::dispatch($store);
+        ShopifyCreateWebhooks::dispatch($store);
 //        ShopifyLoadProducts::dispatch($store);
         return redirect("http://{$config['ShopUrl']}/admin/apps");
     }
