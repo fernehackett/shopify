@@ -52,6 +52,7 @@ class StoreController extends Controller
                 "format"  => "json"
             ]);
         } catch (Exception $e) {
+            \Log::alert($e->getMessage());
         };
         try {
             $shopify->Webhook->post([
