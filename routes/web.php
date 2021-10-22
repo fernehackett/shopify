@@ -18,5 +18,6 @@ Route::get('/', function () {
 });
 
 Route::get('install', 'HomeController@install')->name("install");
+Route::get('policy', 'HomeController@policy')->name("policy");
 Route::match(["post","get"],'install/submit', 'HomeController@submit')->name("submit");
 Route::get('install/success', 'HomeController@success')->name("success");

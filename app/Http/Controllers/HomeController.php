@@ -79,4 +79,9 @@ class HomeController extends Controller
 //        ShopifyLoadProducts::dispatch($store);
         return redirect("http://{$config['ShopUrl']}/admin/apps");
     }
+
+    public function policy()
+    {
+        return view("policy");
+    }
 }
