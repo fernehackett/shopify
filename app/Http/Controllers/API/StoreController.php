@@ -47,6 +47,14 @@ class StoreController extends Controller
         $store = Store::updateOrCreate(["shopify_url" => $config['ShopUrl']], $filter);
         try {
             $shopify->Webhook->post([
+                "topic"   => "app/uninstalled",
+                "address" => route("api.webHook"),
+                "format"  => "json"
+            ]);
+        } catch (Exception $e) {
+        };
+        try {
+            $shopify->Webhook->post([
                 "topic"   => "products/create",
                 "address" => route("api.webHook"),
                 "format"  => "json"
@@ -290,6 +298,9 @@ class StoreController extends Controller
                 $item = json_decode($data, true);
                 $order = Order::where("order_id", $item["id"])->first();
                 if ($order) $order->delete();
+                break;
+            case "app/uninstalled":
+                $store = json_decode($data, true);
             default:
                 \Log::info(json_decode($data, true));
                 break;
