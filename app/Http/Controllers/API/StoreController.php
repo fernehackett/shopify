@@ -280,6 +280,7 @@ class StoreController extends Controller
                 Store::where("shopify_url", $store_url)->delete();
                 break;
             default:
+                \Log::info($topic);
                 \Log::info(json_decode($data, true));
                 break;
         }
