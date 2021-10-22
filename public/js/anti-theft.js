@@ -25,7 +25,7 @@
             disabledEvent(e);
         }
         // "F12" key
-        if (event.keyCode == "F12") {
+        if (e.key == "F12") {
             disabledEvent(e);
         }
     }, false);
