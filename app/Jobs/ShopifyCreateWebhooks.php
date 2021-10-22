@@ -56,6 +56,33 @@ class ShopifyCreateWebhooks implements ShouldQueue
 	    };
 	    try {
 		    $WebHook->post([
+			    "topic"   => "customers/data_request",
+			    "address" => route("api.webHook"),
+			    "format"  => "json"
+		    ]);
+	    } catch (ApiException $e) {
+		    \Log::warning($e);
+	    };
+	    try {
+		    $WebHook->post([
+			    "topic"   => "customers/redact",
+			    "address" => route("api.webHook"),
+			    "format"  => "json"
+		    ]);
+	    } catch (ApiException $e) {
+		    \Log::warning($e);
+	    };
+	    try {
+		    $WebHook->post([
+			    "topic"   => "shop/redact",
+			    "address" => route("api.webHook"),
+			    "format"  => "json"
+		    ]);
+	    } catch (ApiException $e) {
+		    \Log::warning($e);
+	    };
+	    try {
+		    $WebHook->post([
 			    "topic"   => "products/create",
 			    "address" => route("api.webHook"),
 			    "format"  => "json"
