@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Store;
 use Illuminate\Console\Command;
+use PHPShopify\Exception\ApiException;
 use PHPShopify\ShopifySDK;
 
 class Test extends Command
@@ -52,12 +53,33 @@ class Test extends Command
             "AccessToken"  => $access_token
         ];
         $shopify = new ShopifySDK($config);
-        $res = $shopify->Webhook->post([
-            "topic"   => "app/uninstalled",
-            "address" => route("api.webHook"),
-            "format"  => "json"
-        ]);
-        dump($res);
+        try {
+            $WebHook->post([
+                "topic"   => "customers/data_request",
+                "address" => route("api.webHook"),
+                "format"  => "json"
+            ]);
+        } catch (ApiException $e) {
+            \Log::warning($e);
+        };
+        try {
+            $WebHook->post([
+                "topic"   => "customers/redact",
+                "address" => route("api.webHook"),
+                "format"  => "json"
+            ]);
+        } catch (ApiException $e) {
+            \Log::warning($e);
+        };
+        try {
+            $WebHook->post([
+                "topic"   => "shop/redact",
+                "address" => route("api.webHook"),
+                "format"  => "json"
+            ]);
+        } catch (ApiException $e) {
+            \Log::warning($e);
+        };
         return 0;
     }
 }
