@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Store;
 use Illuminate\Console\Command;
 use PHPShopify\ShopifySDK;
 
@@ -40,8 +41,10 @@ class Test extends Command
     {
         $api_key = env("SHOPIFY_API_KEY", "73fdeda4d7dddca79264af93a10ce9f0");
         $api_secret = env("SHOPIFY_SECRET", "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");
-        $access_token = "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";
         $shop_url = "storetestexp.myshopify.com";
+
+        $store = Store::where("shopify_url", $shop_url)->first();
+        $access_token = $store->access_token;
         $config = [
             'ShopUrl'      => $shop_url,
             'ApiKey'       => $api_key,
