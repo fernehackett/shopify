@@ -163,7 +163,7 @@ class StoreController extends Controller
         $topic = $request->server('HTTP_X_SHOPIFY_TOPIC', "");
         $shop = $request->server('HTTP_X_SHOPIFY_SHOP_DOMAIN', "");
         $api_secret = $this->api_secret;
-        $store = \App\Store::where("shopify_url", $shop)->first();
+        $store = Store::where("shopify_url", $shop)->first();
         if (!$store) return response()->json(["status" => "succeed"]);
         $hmac_header = $request->server('HTTP_X_SHOPIFY_HMAC_SHA256');
         $data = file_get_contents('php://input');
@@ -211,32 +211,6 @@ class StoreController extends Controller
             case 'collections/delete':
                 $collection = json_decode($data, true);
                 \Log::info($collection);
-                break;
-            case 'fulfillments/create':
-            case 'fulfillments/update':
-                $item = json_decode($data, true);
-                $data = [
-                    "store_id"       => $store->id,
-                    "order_id"       => $item["order_id"],
-                    "fulfillment_id" => $item["id"],
-                ];
-                if (isset($item["tracking_numbers"])) {
-                    $data["tracking_company"] = $item["tracking_company"];
-                    $data["tracking_numbers"] = $item["tracking_numbers"];
-                    $data["tracking_urls"] = $item["tracking_urls"];
-                }
-                $fulfillment = Fulfillment::updateOrCreate([
-                    "store_id"       => $store->id,
-                    "order_id"       => $item["order_id"],
-                    "fulfillment_id" => $item["id"]
-                ], $data);
-                $order = Order::where("order_id", $item["order_id"])->with(["transactions" => function ($q) {
-                    $q->where("status", "success");
-                }])->first();
-                //		        end send;
-                $transactions = $order->transactions;
-                if (count($transactions) > 0) {
-                }
                 break;
             case 'orders/create':
             case 'orders/updated':
