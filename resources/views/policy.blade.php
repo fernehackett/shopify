@@ -9,6 +9,7 @@
 <body class="app">
 <div class="pos-a t-0 l-0 bgc-white w-100 h-100 d-f fxd-r fxw-w ai-c jc-c pos-r p-30">
     <div class="col-md-8 col-md-offset-2 page-content-wrap">
+        <h2>Privacy Policy</h2>
         <p>This website (the “Site”) is operated by Architechpro OÜ (“Architechpro”, “we”, “us” and/or “our”) and has
             been created to provide our Site visitors (“you”, “your”) with information about our company and our e-mail
             collection tools. This Privacy Policy (this “Policy”) sets forth Architechpro’s policy with respect to
