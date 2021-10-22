@@ -35,7 +35,7 @@ class ShopifyCreateWebhooks implements ShouldQueue
     {
 	    $store = $this->store;
 	    $config = [
-		    'ApiVersion'  => '2020-07',
+		    'ApiVersion'  => '2021-10',
 		    'ShopUrl'     => $store->shopify_url,
 		    "AccessToken" => $store->access_token
 	    ];

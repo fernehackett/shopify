@@ -41,7 +41,7 @@ class HomeController extends Controller
         $scope = env("SHOPIFY_SCOPE", "read_products,read_orders,write_orders,write_script_tags,read_script_tags,write_products");
         $shop_url = $request->get("shop");
         $config = [
-            'ApiVersion'   => '2020-07',
+            'ApiVersion'   => '2021-10',
             'ShopUrl'      => $shop_url,
             'ApiKey'       => $api_key,
             'SharedSecret' => $api_secret,
@@ -58,7 +58,7 @@ class HomeController extends Controller
         $scope = env("SHOPIFY_SCOPE", "read_products,read_orders,write_orders,write_script_tags,read_script_tags,write_products");
         $shop_url = $request->get("shop");
         $config = [
-            'ApiVersion'   => '2020-07',
+            'ApiVersion'   => '2021-10',
             'ShopUrl'     => $shop_url,
             'ApiKey'       => $api_key,
             'SharedSecret' => $api_secret,

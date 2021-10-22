@@ -33,7 +33,7 @@ class DashboardController extends Controller
         $store_url = session("store_url", "");
         $store = Store::where("shopify_url", $store_url)->first();
         $config = [
-            'ApiVersion'  => '2020-07',
+            'ApiVersion'  => '2021-10',
             'ShopUrl'     => $store_url,
             "AccessToken" => $store->access_token
         ];
