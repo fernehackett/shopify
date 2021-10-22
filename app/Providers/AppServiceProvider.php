@@ -31,5 +31,6 @@ class AppServiceProvider extends ServiceProvider
             define('ADMIN', config('variables.APP_ADMIN', 'admin'));
         }
         require_once base_path('resources/macros/form.php');
+        $this->app['request']->server->set('HTTPS', 'on');
     }
 }
