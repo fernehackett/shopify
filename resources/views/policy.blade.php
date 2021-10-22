@@ -8,8 +8,7 @@
 
 <body class="app">
 <div class="pos-a t-0 l-0 bgc-white w-100 h-100 d-f fxd-r fxw-w ai-c jc-c pos-r p-30">
-    <div class="col-md-8 col-md-offset-2 page-content-wrap">
-        This website (the “Site”) is operated by Architechpro OÜ (“Architechpro”, “we”, “us” and/or “our”) and has been created to provide our Site visitors (“you”, “your”) with information about our company and our e-mail collection tools. This Privacy Policy (this “Policy”) sets forth Architechpro’s policy with respect to information, including personally identifiable data (such personally identifiable data “Personal Information”), that is collected from you through the Site or through our other service offerings (collectively, including the Site, the “Services”). Certain Services may be made available to you on websites owned by our end customers (“End Customers”), and the information collected via these embedded widgets (“Tools”) is directed to Architechpro OÜ and governed by this Policy.
+    <div class="col-md-8 col-md-offset-2 page-content-wrap">{{ nl2br("This website (the “Site”) is operated by Architechpro OÜ (“Architechpro”, “we”, “us” and/or “our”) and has been created to provide our Site visitors (“you”, “your”) with information about our company and our e-mail collection tools. This Privacy Policy (this “Policy”) sets forth Architechpro’s policy with respect to information, including personally identifiable data (such personally identifiable data “Personal Information”), that is collected from you through the Site or through our other service offerings (collectively, including the Site, the “Services”). Certain Services may be made available to you on websites owned by our end customers (“End Customers”), and the information collected via these embedded widgets (“Tools”) is directed to Architechpro OÜ and governed by this Policy.
 
         The Services and our business may change from time to time. As a result, at times it may be necessary for Architechpro OÜ to make changes to this Policy. Architechpro OÜ reserves the right to update this Policy at any time and from time to time without prior notice. Please review this Policy periodically, and especially before you provide any Personal Information. This Policy was last updated on the date indicated above. Your continued use of the Services after any changes or revisions to this Policy shall indicate your agreement with the terms of such revised Policy.
 
@@ -65,7 +64,8 @@
 
         9. EU Personal Data
         With respect to the processing of personal data relating to data subjects located in the European Economic Area (including the United Kingdom as of the Effective Date of this Privacy Policy) by Architechpro OÜ solely on behalf of the End Customer, the terms of the Data Processing Addendum shall apply. The following terms have the meanings given in the General Data Protection Regulation (EU) 2016/679 (“GDPR”): “personal data”, “data subject” and “process”.
-    </div>
+    ") }}
+        </div>
 </div>
 </body>
 
