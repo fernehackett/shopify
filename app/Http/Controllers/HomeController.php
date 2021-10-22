@@ -36,8 +36,8 @@ class HomeController extends Controller
 
     public function submit(Request $request)
     {
-        $api_key = env("SHOPIFY_API_KEY", "9980cee5ec9b979c47ef231b98d4330a");
-        $api_secret = env("SHOPIFY_SECRET", "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");
+        $api_key = env("SHOPIFY_API_KEY", "");
+        $api_secret = env("SHOPIFY_SECRET", "");
         $scope = env("SHOPIFY_SCOPE", "read_products,read_orders,write_orders,write_script_tags,read_script_tags,write_products");
         $shop_url = $request->get("shop");
         $config = [
@@ -53,8 +53,8 @@ class HomeController extends Controller
 
     public function success(Request $request)
     {
-        $api_key = env("SHOPIFY_API_KEY", "9980cee5ec9b979c47ef231b98d4330a");
-        $api_secret = env("SHOPIFY_SECRET", "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");
+        $api_key = env("SHOPIFY_API_KEY", "");
+        $api_secret = env("SHOPIFY_SECRET", "");
         $scope = env("SHOPIFY_SCOPE", "read_products,read_orders,write_orders,write_script_tags,read_script_tags,write_products");
         $shop_url = $request->get("shop");
         $config = [
