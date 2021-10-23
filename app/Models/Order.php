@@ -29,11 +29,11 @@ class Order extends Model
 		return $this->hasMany(OrderItem::class,"order_id","order_id");
 	}
 
-	public function transactions(){
-		return $this->hasMany(Transaction::class,"order_id","order_id");
-	}
-
-	public function fulfillments(){
-		return $this->hasMany(Fulfillment::class,"order_id","order_id");
-	}
+//	public function transactions(){
+//		return $this->hasMany(Transaction::class,"order_id","order_id");
+//	}
+//
+//	public function fulfillments(){
+//		return $this->hasMany(Fulfillment::class,"order_id","order_id");
+//	}
 }
