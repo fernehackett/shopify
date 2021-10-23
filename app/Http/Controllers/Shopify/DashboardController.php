@@ -62,4 +62,16 @@ class DashboardController extends Controller
             return back()->withSuccess("Update successfully!");
         }
     }
+
+
+    public function getAntiTheftFile(Request $request)
+    {
+        $store_url = $request->get("shop", "");
+        $antiTheft = ScriptTag::where("shopify_url", $store_url)->where("name", "anti-theft")->first();
+        if($antiTheft){
+            return view("shopify.scripts.anti-theft");
+        }else{
+            return "";
+        }
+    }
 }
