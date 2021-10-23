@@ -23,7 +23,7 @@ class CreateProductsTable extends Migration
             $table->string("banner")->nullable();
             $table->string("product_type")->nullable();
             $table->string("vendor")->nullable();
-            $table->string("tags")->nullable();
+            $table->longText("tags")->nullable();
             $table->longText("description")->nullable();
             $table->tinyInteger("status")->default(0);
             $table->string("fbpixel")->nullable();
