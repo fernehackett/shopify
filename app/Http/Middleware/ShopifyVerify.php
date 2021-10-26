@@ -17,65 +17,27 @@ class ShopifyVerify
      */
     public function handle(Request $request, Closure $next)
     {
-        $api_secret = env("SHOPIFY_SECRET", "84d73168d39f6b575407c3b3e8249ae2");
-        dump($_SERVER);
-//        $parent = $request->server("HTTP_REFERER");
-//        if(!isset($parent)){
-//            abort(403);
-//        }
-//        dump($parent);
-        if (strtolower($request->method()) == "get") {
-            $hmac = $request->get("hmac");
-            if (isset($hmac)) {
-                $data = $request->all();
-                unset($data["hmac"]);
-                $temp = [];
-                foreach ($data as $key => $value) {
-                    $key = str_replace("%", "%25", $key);
-                    $key = str_replace("&", "%26", $key);
-                    $key = str_replace("=", "%3D", $key);
-                    $value = str_replace("%", "%25", $value);
-                    $value = str_replace("&", "%26", $value);
-                    $temp[] = "{$key}={$value}";
-                }
-                $str = implode("&", $temp);
-                $calculated_hmac = hash_hmac('sha256', $str, $api_secret);
-                $store_url = $request->get("shop", "");
-                $store = Store::where("shopify_url", $store_url)->first();
-                $token = [
-                    "hmac"            => $hmac,
-                    "calculated_hmac" => $calculated_hmac,
-                    "store_url"       => $store_url,
-                ];
-                session($token);
-                session("shopify_token", base64_encode(json_encode($token)));
-            } else {
-                $hmac = session("hmac");
-                $calculated_hmac = session("calculated_hmac");
-                $store_url = session("store_url");
-                $store = Store::where("shopify_url", $store_url)->first();
+        $api_secret = env("SHOPIFY_SECRET", "");
+        $hmac = $request->get("hmac");
+        if (isset($hmac)) {
+            $data = $request->all();
+            unset($data["hmac"]);
+            $temp = [];
+            foreach ($data as $key => $value) {
+                $key = str_replace("%", "%25", $key);
+                $key = str_replace("&", "%26", $key);
+                $key = str_replace("=", "%3D", $key);
+                $value = str_replace("%", "%25", $value);
+                $value = str_replace("&", "%26", $value);
+                $temp[] = "{$key}={$value}";
             }
-            if (!isset($store)) {
-                return redirect(route("submit", ["shop" => $store_url]));
-            }
-            if (!isset($hmac) || !hash_equals($hmac, $calculated_hmac)) {
+            $str = implode("&", $temp);
+            $calculated_hmac = hash_hmac('sha256', $str, $api_secret);
+            $store_url = $request->get("shop", session("store_url"));
+            if(!isset($store_url)){
                 abort(403);
             }
-        } elseif (strtolower($request->method()) == "post") {
-            $hmac = $request->server('HTTP_X_SHOPIFY_HMAC_SHA256');
-            $data = file_get_contents('php://input');
-            $calculated_hmac = base64_encode(hash_hmac('sha256', $data, $api_secret, true));
-            if (!isset($hmac)) {
-                $hmac = session("hmac", null);
-                $calculated_hmac = session("calculated_hmac", null);
-            }
-            if (!isset($hmac) || !hash_equals($hmac, $calculated_hmac)) {
-                abort(403);
-            }
-            $store_url = $request->server('HTTP_X_SHOPIFY_SHOP_DOMAIN', session("store_url", null));
             $store = Store::where("shopify_url", $store_url)->first();
-//            $owner = $store->owner;
-//            auth()->login($owner );
             $token = [
                 "hmac"            => $hmac,
                 "calculated_hmac" => $calculated_hmac,
@@ -83,6 +45,17 @@ class ShopifyVerify
             ];
             session($token);
             session("shopify_token", base64_encode(json_encode($token)));
+        } else {
+            $hmac = session("hmac");
+            $calculated_hmac = session("calculated_hmac");
+            $store_url = session("store_url");
+            $store = Store::where("shopify_url", $store_url)->first();
+        }
+        if (!isset($store)) {
+            return redirect(route("submit", ["shop" => $store_url]));
+        }
+        if (!isset($hmac) || !hash_equals($hmac, $calculated_hmac)) {
+            return redirect()->to($store_url."/admin/apps/exp-anti-theft");
         }
         return $next($request);
     }
