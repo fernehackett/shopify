@@ -5,27 +5,27 @@
     document.addEventListener("keydown keyup", function (e) {
         //document.onkeydown = function(e) {
         // "I" key
-        if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() == "i") {
+        if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
             disabledEvent(e);
         }
         // "I" key
-        if (e.ctrlKey && e.key.toLowerCase() == "c") {
+        if (e.ctrlKey && e.keyCode === 67) {
             disabledEvent(e);
         }
         // "J" key
-        if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() == "j") {
+        if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
             disabledEvent(e);
         }
         // "S" key + macOS
-        if (e.key.toLowerCase() == "s" && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+        if (e.keyCode === 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
             disabledEvent(e);
         }
         // "U" key
-        if (e.ctrlKey && e.key.toLowerCase() == "u") {
+        if (e.ctrlKey && e.keyCode === 85) {
             disabledEvent(e);
         }
         // "F12" key
-        if (e.key.toLowerCase() == "f12") {
+        if (e.keyCode === 123) {
             disabledEvent(e);
         }
     }, false);
