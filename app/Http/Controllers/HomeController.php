@@ -51,6 +51,7 @@ class HomeController extends Controller
                 'SharedSecret' => $api_secret,
             ];
             $redirectUrl = route("success");
+            ShopifySDK::$config = $config;
             $authUrl = \PHPShopify\AuthHelper::createAuthRequest($scope, $redirectUrl, null, null, true);
             return redirect()->to($authUrl);
         }catch(\Exception $ex){
