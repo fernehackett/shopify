@@ -11,7 +11,7 @@ class ShopifyVerify
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param \Closure $next
      * @return mixed
      */
@@ -36,8 +36,6 @@ class ShopifyVerify
                 $calculated_hmac = hash_hmac('sha256', $str, $api_secret);
                 $store_url = $request->get("shop", "");
                 $store = Store::where("shopify_url", $store_url)->first();
-//                $owner = $store->owner;
-//                auth()->login($owner );
                 $token = [
                     "hmac"            => $hmac,
                     "calculated_hmac" => $calculated_hmac,
@@ -46,9 +44,9 @@ class ShopifyVerify
                 session($token);
                 session("shopify_token", base64_encode(json_encode($token)));
             } else {
-                $hmac = session("hmac", null);
-                $calculated_hmac = session("calculated_hmac", null);
-                $store_url = session("store_url", null);
+                $hmac = session("hmac");
+                $calculated_hmac = session("calculated_hmac");
+                $store_url = session("store_url");
                 $store = Store::where("shopify_url", $store_url)->first();
             }
             if (!isset($store)) {
