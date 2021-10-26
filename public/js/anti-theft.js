@@ -2,13 +2,13 @@
     document.addEventListener("contextmenu", function (e) {
         e.preventDefault();
     }, false);
-    document.addEventListener("keydown keyup", function (e) {
+    document.addEventListener("keydown", function (e) {
         //document.onkeydown = function(e) {
         // "I" key
         if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
             disabledEvent(e);
         }
-        // "I" key
+        // "C" key
         if (e.ctrlKey && e.keyCode === 67) {
             disabledEvent(e);
         }
@@ -29,6 +29,7 @@
             disabledEvent(e);
         }
     }, false);
+
     function disabledEvent(e) {
         if (e.stopPropagation) {
             e.stopPropagation();
