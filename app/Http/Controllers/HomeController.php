@@ -34,21 +34,29 @@ class HomeController extends Controller
         return view('install');
     }
 
+    /**
+     * @throws \PHPShopify\Exception\SdkException
+     */
     public function submit(Request $request)
     {
-        $api_key = env("SHOPIFY_API_KEY", "");
-        $api_secret = env("SHOPIFY_SECRET", "");
-        $scope = env("SHOPIFY_SCOPE", "read_products,read_orders,write_orders,write_script_tags,read_script_tags,write_products");
-        $shop_url = $request->get("shop");
-        $config = [
-            'ApiVersion'   => '2021-10',
-            'ShopUrl'      => $shop_url,
-            'ApiKey'       => $api_key,
-            'SharedSecret' => $api_secret,
-        ];
-        $redirectUrl = route("success");
-        $shopify = new ShopifySDK($config);
-        return \PHPShopify\AuthHelper::createAuthRequest($scope, $redirectUrl);
+        try {
+            $api_key = env("SHOPIFY_API_KEY", "");
+            $api_secret = env("SHOPIFY_SECRET", "");
+            $scope = env("SHOPIFY_SCOPE", "read_products,read_orders,write_orders,write_script_tags,read_script_tags,write_products");
+            $shop_url = $request->get("shop");
+            $config = [
+                'ApiVersion'   => '2021-10',
+                'ShopUrl'      => $shop_url,
+                'ApiKey'       => $api_key,
+                'SharedSecret' => $api_secret,
+            ];
+            $redirectUrl = route("success");
+            $authUrl = \PHPShopify\AuthHelper::createAuthRequest($scope, $redirectUrl, null, null, true);
+            return redirect()->to($authUrl);
+        }catch(\Exception $ex){
+            \Log::error($ex->getMessage());
+            abort(500);
+        }
     }
 
     public function success(Request $request)
