@@ -2,30 +2,30 @@
     document.addEventListener("contextmenu", function (e) {
         e.preventDefault();
     }, false);
-    document.addEventListener("keydown", function (e) {
+    document.addEventListener("keydown keyup", function (e) {
         //document.onkeydown = function(e) {
         // "I" key
-        if (e.ctrlKey && e.shiftKey && e.key == "i") {
+        if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() == "i") {
             disabledEvent(e);
         }
         // "I" key
-        if (e.ctrlKey && e.key == "c") {
+        if (e.ctrlKey && e.key.toLowerCase() == "c") {
             disabledEvent(e);
         }
         // "J" key
-        if (e.ctrlKey && e.shiftKey && e.key == "j") {
+        if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() == "j") {
             disabledEvent(e);
         }
         // "S" key + macOS
-        if (e.key == "s" && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+        if (e.key.toLowerCase() == "s" && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
             disabledEvent(e);
         }
         // "U" key
-        if (e.ctrlKey && e.key == "u") {
+        if (e.ctrlKey && e.key.toLowerCase() == "u") {
             disabledEvent(e);
         }
         // "F12" key
-        if (e.key == "F12") {
+        if (e.key.toLowerCase() == "f12") {
             disabledEvent(e);
         }
     }, false);
