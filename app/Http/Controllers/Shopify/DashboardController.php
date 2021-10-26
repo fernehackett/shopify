@@ -67,7 +67,6 @@ class DashboardController extends Controller
         }
     }
 
-
     public function getAntiTheftFile(Request $request)
     {
         $store_url = $request->get("shop", "");

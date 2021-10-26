@@ -18,6 +18,11 @@ class ShopifyVerify
     public function handle(Request $request, Closure $next)
     {
         $api_secret = env("SHOPIFY_SECRET", "84d73168d39f6b575407c3b3e8249ae2");
+        $parent = $request->server("HTTP_REFERER");
+        if(!isset($parent)){
+            abort(403);
+        }
+        dump($parent);
         if (strtolower($request->method()) == "get") {
             $hmac = $request->get("hmac");
             if (isset($hmac)) {
