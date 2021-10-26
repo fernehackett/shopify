@@ -57,7 +57,11 @@ class DashboardController extends Controller
             }
         } else {
             $script_id = $request->get("script_id");
-            $shopify->ScriptTag($script_id)->delete();
+            try {
+                $shopify->ScriptTag($script_id)->delete();
+            }catch(\Exception $ex){
+                \Log::error($ex->getMessage());
+            }
             ScriptTag::where("script_id", $script_id)->delete();
             return back()->withSuccess("Update successfully!");
         }
