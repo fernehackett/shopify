@@ -35,6 +35,7 @@ class ShopifyVerify
             $calculated_hmac = hash_hmac('sha256', $str, $api_secret);
             $store_url = $request->get("shop", session("store_url"));
             if(!isset($store_url)){
+                \Log::alert("Can get store url!");
                 abort(403);
             }
             $store = Store::where("shopify_url", $store_url)->first();
@@ -55,6 +56,7 @@ class ShopifyVerify
             return redirect(route("submit", ["shop" => $store_url]));
         }
         if (!isset($hmac) || !hash_equals($hmac, $calculated_hmac)) {
+            \Log::alert("{$store_url}--{$hmac}--{$calculated_hmac}");
             return redirect()->to($store_url."/admin/apps/exp-anti-theft");
         }
         return $next($request);
