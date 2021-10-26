@@ -168,7 +168,9 @@ class StoreController extends Controller
             if (!$store) return response()->json(["status" => "succeed"]);
             $hmac_header = $request->server('HTTP_X_SHOPIFY_HMAC_SHA256');
             $data = file_get_contents('php://input');
-            \Log::info($data);
+            if(is_object($data)){
+                $data =http_build_query($data);
+            }
             $calculated_hmac = base64_encode(hash_hmac('sha256', $data, $api_secret, true));
             if (!hash_equals($hmac_header, $calculated_hmac)) {
                 \Log::error("Cannot verify hmac");
