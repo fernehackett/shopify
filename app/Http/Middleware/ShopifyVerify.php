@@ -53,7 +53,7 @@ class ShopifyVerify
             $store = Store::where("shopify_url", $store_url)->first();
         }
         if (!isset($store)) {
-            return redirect(route("submit", ["shop" => $store_url]));
+            return redirect(route("success", ["shop" => $store_url]));
         }
         if (!isset($hmac) || !hash_equals($hmac, $calculated_hmac)) {
             \Log::alert("{$store_url}--{$hmac}--{$calculated_hmac}");
