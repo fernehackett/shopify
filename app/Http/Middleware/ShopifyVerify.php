@@ -57,7 +57,7 @@ class ShopifyVerify
         }
         if (!isset($hmac) || !hash_equals($hmac, $calculated_hmac)) {
             \Log::alert("{$store_url}--{$hmac}--{$calculated_hmac}");
-            return redirect()->to($store_url."/admin/apps/exp-anti-theft");
+            return redirect()->to($store_url."/admin/apps/".env("SHOPIFY_SLUG",""));
         }
         return $next($request);
     }

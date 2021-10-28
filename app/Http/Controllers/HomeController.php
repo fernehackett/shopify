@@ -85,7 +85,7 @@ class HomeController extends Controller
         ];
         $store = Store::updateOrCreate(["shopify_url" => $config['ShopUrl']], $filter);
         ShopifyCreateWebhooks::dispatch($store);
-        return redirect("http://{$config['ShopUrl']}/admin/apps");
+        return redirect("https://{$config['ShopUrl']}/admin/apps/".env("SHOPIFY_SLUG",""));
     }
 
     public function policy()
