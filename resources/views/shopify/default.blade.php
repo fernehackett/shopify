@@ -16,6 +16,23 @@
 	{{-- <link href="{{ mix('/css/rtl.css') }}" rel="stylesheet">  --}}
 
 	@yield('css')
+    <script>
+        window.onload = function(){
+            let parent = document.location.ancestorOrigins[0];
+            if(navigator.cookieEnabled === false){
+                let elm = document.createElement("H1");
+                elm.innerText = "Please enable cookie and reload the website!";
+                elm.classList.add("c-red-700");
+                document.querySelector("#mainContent").prepend(elm);
+            }
+            if(parent && parent !== `https://{{ session("store_url") }}`){
+                let elm = document.createElement("H1");
+                elm.innerText = "You are signed in to multiple websites. Please reload the website!";
+                elm.classList.add("c-red-700");
+                document.querySelector("#mainContent").prepend(elm);
+            }
+        }
+    </script>
 
 </head>
 
