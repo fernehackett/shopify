@@ -6,7 +6,7 @@
 @section('content')
     <div class="bgc-white bd bdrs-3 p-20 mB-20">
         {{ Form::open([
-            "url" => route("shopify.anti-theft"),
+            "url" => route("shopify.anti-theft", request()->query()),
             "method" => "POST"
         ]) }}
             <div class="form-check">
