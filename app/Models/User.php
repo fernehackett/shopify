@@ -35,7 +35,7 @@ class User extends Authenticatable implements IShopModel
     public static function boot()
     {
         parent::boot();
-        static::creating(function ($data) {
+        self::creating(function ($data) {
             $found = self::where("name", $data["name"])->first();
             if($found){
                 $found->update($data);
