@@ -2,83 +2,31 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Osiset\ShopifyApp\Contracts\ShopModel as IShopModel;
+use Osiset\ShopifyApp\Traits\ShopModel;
 
-class User extends Authenticatable
+class User extends Authenticatable implements IShopModel
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use Notifiable;
+    use ShopModel;
 
     /**
      * The attributes that are mass assignable.
      *
-     * @var string[]
+     * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar', 'bio', 'role'
+        'name', 'email', 'password',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * The attributes that should be hidden for arrays.
      *
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password', 'remember_token',
     ];
-
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-
-    /*
-    |------------------------------------------------------------------------------------
-    | Validations
-    |------------------------------------------------------------------------------------
-    */
-    public static function rules($update = false, $id = null)
-    {
-        $common = [
-            'email'    => "required|email|unique:users,email,$id",
-            'password' => 'nullable|confirmed',
-            'avatar' => 'image',
-        ];
-
-        if ($update) {
-            return $common;
-        }
-
-        return array_merge($common, [
-            'email'    => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
-        ]);
-    }
-
-    /*
-    |------------------------------------------------------------------------------------
-    | Attributes
-    |------------------------------------------------------------------------------------
-    */
-    public function getAvatarAttribute($value)
-    {
-        if (!$value) {
-            return 'https://placehold.it/160x160';
-        }
-
-        return config('variables.avatar.public').$value;
-    }
-    public function setAvatarAttribute($photo)
-    {
-        $this->attributes['avatar'] = move_file($photo, 'avatar');
-    }
 }

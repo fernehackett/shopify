@@ -4,7 +4,7 @@
 		<div class="sidebar-logo">
 			<div class="peers ai-c fxw-nw">
 				<div class="peer peer-greed">
-					<a class='sidebar-link td-n' href="{{ route("shopify.dashboard") }}">
+					<a class='sidebar-link td-n' href="{{ route("home") }}">
 						<div class="peers ai-c fxw-nw">
 							<div class="peer">
 								<div class="logo">

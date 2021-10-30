@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Shopify;
 
 use App\Http\Controllers\Controller;
 use App\Models\ScriptTag;
-use App\Models\Store;
 use Illuminate\Http\Request;
-use PHPShopify\ShopifySDK;
 
 class DashboardController extends Controller
 {
@@ -21,36 +19,31 @@ class DashboardController extends Controller
 
     public function index(Request $request)
     {
-        $token = session("shopify_token", null);
-        $store_url = session("store_url", "");
-        $store = Store::where("shopify_url", $store_url)->first();
-        $antiTheft = ScriptTag::where("shopify_url", $store_url)->where("name", "anti-theft")->first();
-        return response()->view("shopify.dashboard.index", ["store" => $store, "token" => $token, "antiTheft" => $antiTheft])->header("token", $token);
+        $user = auth()->user();
+        $antiTheft = ScriptTag::where("shopify_url", $user->name)->where("name", "anti-theft")->first();
+        return response()->view("shopify.dashboard.index", ["antiTheft" => $antiTheft]);
     }
 
     public function antiTheft(Request $request)
     {
-        $store_url = session("store_url", "");
-        $store = Store::where("shopify_url", $store_url)->first();
-        $config = [
-            'ApiVersion'  => '2021-10',
-            'ShopUrl'     => $store_url,
-            "AccessToken" => $store->access_token
-        ];
-        $shopify = new ShopifySDK($config);
+        $user = auth()->user();
+        $store_url = $user->name;
         if ($request->has("anti-theft") && $request->get("anti-theft") == "on") {
             try {
                 $data = [
-                    "event"         => "onload",
-                    "src"           => asset("/js/anti-theft.min.js"),
-                    "display_scope" => "online_store",
+                    "script_tag" => [
+                        "event"         => "onload",
+                        "src"           => asset("/js/anti-theft.min.js"),
+                        "display_scope" => "online_store",
+                    ]
                 ];
-                $response = $shopify->ScriptTag()->post($data);
-                $response["shopify_url"] = $store_url;
-                $response["name"] = "anti-theft";
-                $response["script_id"] = $response["id"];
-                unset($response["id"]);
-                ScriptTag::create($response);
+                $response = $user->api()->rest('POST', "/admin/api/script_tags.json", $data);
+                $scriptTag = ((array)$response["body"]["script_tag"])["container"];
+                $scriptTag["shopify_url"] = $store_url;
+                $scriptTag["name"] = "anti-theft";
+                $scriptTag["script_id"] = $response["id"];
+                unset($scriptTag["id"]);
+                ScriptTag::create($scriptTag);
                 return back()->withSuccess("Update successfully!");
             } catch (\Exception $e) {
                 return back()->withSuccess("Update failed!");
@@ -58,8 +51,8 @@ class DashboardController extends Controller
         } else {
             $script_id = $request->get("script_id");
             try {
-                $shopify->ScriptTag($script_id)->delete();
-            }catch(\Exception $ex){
+                $user->api()->rest('DELETE', "/admin/api/script_tags/{$script_id}.json");
+            } catch (\Exception $ex) {
                 \Log::error($ex->getMessage());
             }
             ScriptTag::where("script_id", $script_id)->delete();
@@ -71,9 +64,9 @@ class DashboardController extends Controller
     {
         $store_url = $request->get("shop", "");
         $antiTheft = ScriptTag::where("shopify_url", $store_url)->where("name", "anti-theft")->first();
-        if($antiTheft){
+        if ($antiTheft) {
             return view("shopify.scripts.anti-theft");
-        }else{
+        } else {
             return "";
         }
     }

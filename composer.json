@@ -16,7 +16,7 @@
         "laravel/ui": "^3.3",
         "laravelcollective/html": "^6.2",
         "arcanedev/log-viewer": "*",
-        "phpclassic/php-shopify": "*",
+        "osiset/laravel-shopify": "^17.1",
         "ext-json": "*"
     },
     "require-dev": {
