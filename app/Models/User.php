@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Osiset\ShopifyApp\Contracts\ShopModel as IShopModel;
@@ -29,4 +30,17 @@ class User extends Authenticatable implements IShopModel
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($data) {
+            $found = self::where("name", $data["name"])->first();
+            if($found){
+                $found->update($data);
+                return $found;
+            }
+        });
+    }
 }
