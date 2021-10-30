@@ -17,7 +17,7 @@ class ShopifyVerify
      */
     public function handle(Request $request, Closure $next)
     {
-        dump($request->query);
+//        dump($request->query);
         dump($request->query('session'));
         dd(session($request->query('session')));
         $api_secret = env("SHOPIFY_SECRET", "");
