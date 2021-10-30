@@ -1,7 +1,7 @@
 @extends('shopify.default')
 
 @section('page-header')
-    Hello, {{ $store->name }}
+    Hello, {{ auth()->user()->name }}
 @stop
 @section('content')
     <div class="bgc-white bd bdrs-3 p-20 mB-20">
