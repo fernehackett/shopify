@@ -19,7 +19,7 @@
         <ul class="nav-right">
             <li>
                 <a href="#" class="balance-notify-text text-uppercase">
-                    <span class="font-weight-bolder c-red-a100">{{ auth()->user()->name() }}</span>
+                    <span class="font-weight-bolder c-red-a100">{{ auth()->user()->name }}</span>
                 </a>
             </li>
             {{--            <li class="notifications dropdown">--}}
