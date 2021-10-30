@@ -19,7 +19,7 @@ class ShopifyVerify
     {
 //        dump($request->query);
         dump($request->query('session'));
-        dd(session($request->query('session')));
+        dump(session($request->query('session')));
         $api_secret = env("SHOPIFY_SECRET", "");
         $hmac = $request->get("hmac");
         if (isset($hmac)) {
