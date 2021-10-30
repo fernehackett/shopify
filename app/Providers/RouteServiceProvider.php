@@ -47,12 +47,6 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
-
-            Route::prefix('shopify')
-                ->as('shopify.')
-                ->middleware(["web", 'shopify.verified'])
-                ->namespace($this->namespace."\Shopify")
-                ->group(base_path('routes/shopify.php'));
         });
     }
 
