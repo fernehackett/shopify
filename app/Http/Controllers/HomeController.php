@@ -2,11 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\ShopifyCreateWebhooks;
-use App\Jobs\ShopifyLoadProducts;
-use App\Models\Store;
 use Illuminate\Http\Request;
-use PHPShopify\ShopifySDK;
 
 class HomeController extends Controller
 {
