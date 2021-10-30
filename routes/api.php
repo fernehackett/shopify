@@ -18,5 +18,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::any("webHook", 'StoreController@webHook')->name("webHook");
+Route::any("webHook", 'StoreController@webHook')->middleware("auth.webhook")->name("webHook");
 Route::any("install", 'StoreController@install');
