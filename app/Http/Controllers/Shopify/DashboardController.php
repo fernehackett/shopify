@@ -41,7 +41,7 @@ class DashboardController extends Controller
                 $scriptTag = ((array)$response["body"]["script_tag"])["container"];
                 $scriptTag["shopify_url"] = $store_url;
                 $scriptTag["name"] = "anti-theft";
-                $scriptTag["script_id"] = $response["id"];
+                $scriptTag["script_id"] = $scriptTag["id"];
                 unset($scriptTag["id"]);
                 ScriptTag::create($scriptTag);
                 return back()->withSuccess("Update successfully!");
