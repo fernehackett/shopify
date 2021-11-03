@@ -279,7 +279,7 @@ return [
     |
     */
 
-    'billing_enabled' => (bool)env('SHOPIFY_BILLING_ENABLED', true),
+    'billing_enabled' => env('SHOPIFY_BILLING_ENABLED', 1),
 
     /*
     |--------------------------------------------------------------------------
@@ -291,7 +291,7 @@ return [
     |
     */
 
-    'billing_freemium_enabled' => (bool)env('SHOPIFY_BILLING_FREEMIUM_ENABLED', true),
+    'billing_freemium_enabled' => env('SHOPIFY_BILLING_FREEMIUM_ENABLED', 1),
 
     /*
     |--------------------------------------------------------------------------
