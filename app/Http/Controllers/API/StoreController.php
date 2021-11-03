@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PHPUnit\Util\Exception;
 
@@ -157,7 +156,6 @@ class StoreController extends Controller
     {
         try {
             $topic = $request->server('HTTP_X_SHOPIFY_TOPIC', "");
-            $api_secret = $this->api_secret;
             $data = file_get_contents('php://input');
             switch ($topic) {
                 case 'products/update':
