@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Osiset\ShopifyApp\Storage\Models\Plan;
 
 class create_plan_data extends Seeder
@@ -14,7 +15,9 @@ class create_plan_data extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Plan::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         Plan::create([
            "type" => "RECURRING",
             "name" => "Monthly",
