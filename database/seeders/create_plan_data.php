@@ -23,21 +23,8 @@ class create_plan_data extends Seeder
             "name" => "Monthly",
             "price" => 9.99,
             "interval" => "EVERY_30_DAYS",
-            "capped_amount" =>14.99,
+            "capped_amount" =>9.99,
             "terms" => "monthly",
-            "trial_days" => 1,
-            "test" => false,
-            "on_install" => 1,
-            "created_at" => null,
-            "updated_at" => null
-        ]);
-        Plan::create([
-           "type" => "RECURRING",
-            "name" => "Yearly",
-            "price" => 99.99,
-            "interval" => "ANNUAL",
-            "capped_amount" =>149.99,
-            "terms" => "yearly",
             "trial_days" => 1,
             "test" => false,
             "on_install" => 1,
