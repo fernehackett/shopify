@@ -44,10 +44,10 @@ class DashboardController extends Controller
                 $scriptTag["script_id"] = $scriptTag["id"];
                 unset($scriptTag["id"]);
                 ScriptTag::create($scriptTag);
-                return back()->withSuccess("Update successfully!");
+                return back()->withHeaders(["success" => "Update successfully!"]);
             } catch (\Exception $e) {
                 \Log::error($e->getMessage());
-                return back()->withSuccess("Update failed!");
+                return back()->withHeaders(["success" => "Update successfully!"]);
             }
         } else {
             $script_id = $request->get("script_id");
@@ -57,7 +57,7 @@ class DashboardController extends Controller
                 \Log::error($ex->getMessage());
             }
             ScriptTag::where("script_id", $script_id)->delete();
-            return back()->withSuccess("Update successfully!");
+            return back()->withHeaders(["success" => "Update successfully!"]);
         }
     }
 

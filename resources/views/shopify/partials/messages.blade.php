@@ -1,34 +1,34 @@
-@if (Session::has('errors'))
+@if (request()->header('errors'))
     <div class="alert alert-danger" role="alert">
-        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-        <ul class="list-unstyled">
-        @foreach (Session::get('errors')->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-        </ul>
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+        {{request()->header('errors')}}
     </div>
 @endif
 
 
-@if (Session::has('warning'))
+@if (request()->header('warning'))
     <div class="alert alert-warning" role="alert">
-        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-        {{Session::get('warning')}}
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+        {{request()->header('warning')}}
     </div>
 @endif
 
 
-@if (Session::has('info'))
+@if (request()->header('info'))
     <div class="alert alert-info" role="alert">
-        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-        {{Session::get('info')}}
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+        {{request()->header('info')}}
     </div>
 @endif
 
 
-@if (Session::has('success'))
+@if (request()->header('success'))
     <div class="alert alert-success" role="alert">
-        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-        {{Session::get('success')}}
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
+        </button>
+        {{request()->header('success')}}
     </div>
 @endif
