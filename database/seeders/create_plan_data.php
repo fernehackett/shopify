@@ -24,7 +24,7 @@ class create_plan_data extends Seeder
             "price" => 9.99,
             "interval" => "EVERY_30_DAYS",
             "capped_amount" =>9.99,
-            "terms" => "monthly",
+            "terms" => "A monthly charge to use service. Sometimes referred to as a maintenance fee.",
             "trial_days" => 1,
             "test" => false,
             "on_install" => 1,
