@@ -44,10 +44,10 @@ class DashboardController extends Controller
                 $scriptTag["script_id"] = $scriptTag["id"];
                 unset($scriptTag["id"]);
                 ScriptTag::create($scriptTag);
-                return redirect(route("home", ["success" => "Enable successfully!"]));
+                return redirect()->to(route("home", ["success" => "Enable successfully!"]));
             } catch (\Exception $e) {
                 \Log::error($e->getMessage());
-                return redirect(route("home", ["error" => "Enable Failed!"]));
+                return redirect()->to(route("home", ["error" => "Enable Failed!"]));
             }
         } else {
             $script_id = $request->get("script_id");
@@ -57,7 +57,7 @@ class DashboardController extends Controller
                 \Log::error($ex->getMessage());
             }
             ScriptTag::where("script_id", $script_id)->delete();
-            return redirect(route("home", ["success" => "Disable successfully!"]));
+            return redirect()->to(route("home", ["success" => "Disable successfully!"]));
         }
     }
 
