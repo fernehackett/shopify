@@ -1,8 +1,8 @@
-@if (request()->has('errors'))
+@if (request()->has('error'))
     <div class="alert alert-danger" role="alert">
         <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
         </button>
-        {{request()->get('errors')}}
+        {{request()->get('error')}}
     </div>
 @endif
 
