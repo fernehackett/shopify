@@ -172,7 +172,7 @@ class StoreController extends Controller
                 case "app/uninstalled":
                     $store = json_decode($data, true);
                     $store_url = $store["myshopify_domain"];
-                    User::where("name", $store_url)->delete();
+                    User::where("name", $store_url)->forceDelete();
                     break;
                 default:
                     \Log::info($topic);
